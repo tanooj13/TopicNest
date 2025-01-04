@@ -38,4 +38,11 @@ class Message(models.Model):
 
     def __str__(self):
         return self.body[0:50]
+    
+class About(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    about = models.TextField()
+
+    def __str__(self):
+        return self.about[0:50]
 

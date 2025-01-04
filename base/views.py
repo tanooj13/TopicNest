@@ -6,8 +6,8 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room,Topic,Message
-from .forms import RoomForm
+from .models import Room,Topic,Message,About
+from .forms import RoomForm,UserForm,AboutForm
 # Create your views here.
 
 def loginPage(request):
@@ -48,6 +48,7 @@ def registerPage(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
+            About.objects.create(user=user, about="")
             login(request,user)
             return redirect('home')
         else:
@@ -95,7 +96,8 @@ def userProfile(request,pk):
     rooms = user.room_set.all()
     room_messages = user.message_set.all()
     topics = Topic.objects.all()
-    context = {'user':user,'rooms':rooms,'topics':topics,'room_messages':room_messages}
+    about = About.objects.get(user=user)
+    context = {'user':user,'rooms':rooms,'topics':topics,'room_messages':room_messages,'about':about}
     return render(request,'base/profile.html',context)
 
 @login_required(login_url='login')
@@ -166,5 +168,39 @@ def deleteMessage(request,pk):
 
 @login_required(login_url='login')
 def updateUser(request):
-    return render(request,'base/update-user.html')
+    user = request.user
+    form = UserForm(instance = user)
+    if (request.method == 'POST'):
+        form = UserForm(request.POST,instance = user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile',pk=user.id)
+    return render(request,'base/update-user.html',{"form":form})
+
+
+@login_required(login_url='login')
+def updateAbout(request):
+    user = request.user
+    # Check if user already has an About instance
+    try:
+        about_instance = About.objects.get(user=user)
+    except About.DoesNotExist:
+        about_instance = None
+
+    if request.method == 'POST':
+        if about_instance:
+            form = AboutForm(request.POST, instance=about_instance)
+        else:
+            form = AboutForm(request.POST)
+        
+        if form.is_valid():
+            # Save the form
+            about = form.save(commit=False)
+            about.user = user  # Ensure the user is set
+            about.save()
+            return redirect('profile', pk=user.id)  # Redirect to the profile page
+    else:
+        # Display the form for GET requests (editing existing 'About' or creating new)
+        form = AboutForm(instance=about_instance)
     
+    return render(request, 'base/update-about.html', {"form": form})

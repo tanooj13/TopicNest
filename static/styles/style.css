@@ -1163,3 +1163,31 @@ a {
   color: var(--color-main);
   font-weight: 1.4rem;
 }
+
+
+
+
+
+
+.profile__about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile__about h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.update-icon {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.update-icon svg {
+  cursor: pointer;
+  width: 16px; /* Smaller icon size */
+  height: 16px;
+}
