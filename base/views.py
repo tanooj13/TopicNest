@@ -111,19 +111,14 @@ def createRoom(request):
         topic_name = request.POST.get('topic')
         topic,created = Topic.objects.get_or_create(name = topic_name)
         # Sending all the post data to the form..The RoomForm() knows what fields to extract
-        Room.objects.create(
+        room = Room.objects.create(
             host = request.user,
             topic = topic,
             name = request.POST.get('name'),
-            description = request.POST.get('description')
+            description = request.POST.get('description'),
         )
-        # form = RoomForm(request.POST)
-        # if form.is_valid:
-        #     # Saving the data in the DB
-        #     room = form.save(commit=False)
-        #     room.host = request.user
-            
-        #    room.save()
+        room.participants.add(request.user)
+
         return redirect('home')
     context = {'form':form,"topics":topics}
     return render(request,'base/room_form.html',context)
