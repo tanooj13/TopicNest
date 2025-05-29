@@ -4,15 +4,15 @@
 
 ## Features
 
-- **Real-Time Messaging**: Engage in live discussions within dedicated topic rooms.
-- **User Authentication**: Secure login and registration system for personalized experiences.
-- **Room Management**: Create and manage rooms tailored to various topics.
+- **Real-Time Messaging**: Engage in live discussions within dedicated topic rooms.  
+- **User Authentication**: Secure login and registration system for personalized experiences.  
+- **Room Management**: Create and manage rooms tailored to various topics.  
 - **Responsive Design**: Optimized UI for both desktop and mobile devices.
 
 ## Technologies Used
 
-- **Backend**: Django
-- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Django  
+- **Frontend**: HTML, CSS, JavaScript  
 - **Database**: SQLite3
 
 ## Installation
@@ -22,43 +22,47 @@
    ```bash
    git clone https://github.com/tanooj13/TopicNest.git
    cd TopicNest
-Set up a virtual environment:
+   ```
 
-bash
-Copy
-Edit
-python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-Install dependencies:
+2. Set up a virtual environment:
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
-Apply migrations:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```
 
-bash
-Copy
-Edit
-python manage.py migrate
-Create a superuser:
+3. Install dependencies:
 
-bash
-Copy
-Edit
-python manage.py createsuperuser
-Run the development server:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-bash
-Copy
-Edit
-python manage.py runserver
-Access the application at http://127.0.0.1:8000/.
+4. Apply migrations:
 
-Usage
-Admin Panel: Access the admin panel at http://127.0.0.1:8000/admin/ to manage users and rooms.
+   ```bash
+   python manage.py migrate
+   ```
 
-User Interaction: Register or log in to participate in discussions.
+5. Create a superuser:
 
-Contributing
-Feel free to fork the repository, submit issues, and create pull requests. Contributions are welcome!
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+6. Run the development server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+7. Open the app at `http://127.0.0.1:8000/` in your browser.
+
+## Usage
+
+- Access the admin panel at `http://127.0.0.1:8000/admin/` to manage users and rooms.  
+- Register or log in to participate in discussions.
+
+## Contributing
+
+Feel free to fork the repo, submit issues, and create pull requests. Contributions are welcome!
+
